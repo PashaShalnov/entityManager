@@ -88,18 +88,11 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	@Transactional(readOnly = true)
-	//TODO check edd's solution
 	public Iterable<AuthorDto> findBookAuthors(String isbn) {		
 		Book book = bookRepository.findById(isbn).orElseThrow(EntityNotFoundException::new);
 		return book.getAuthors().stream()
 				.map(a -> modelMapper.map(a, AuthorDto.class))
 				.collect(Collectors.toList());
-//		Book book = bookRepository.findById(isbn).orElseThrow(EntityNotFoundException::new);
-//		List<Author> authors = new ArrayList<>();
-//		authors.addAll(book.getAuthors());
-//		return	authors.stream()
-//						.map(m -> modelMapper.map(m, AuthorDto.class))
-//						.collect(Collectors.toList());
 	}
 
 	@Override
